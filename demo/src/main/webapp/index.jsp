@@ -1,6 +1,6 @@
 <head>
 <title>A Demo for Corvet</title>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <script language="javascript" src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
@@ -10,41 +10,113 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#example').dataTable();
+	$("#example").dataTable().fnDestroy();
+	$('#example').dataTable({
+		"dom" : '<p<"lengthMenu"l>>t<p<"lengthMenu"l>>',
+	    "order": [[ 0, "desc" ]],
+	    "searching":false,
+	    "pagingType":"full_numbers",
+	    "stateSave":true,
+	    "paging":true, // default:true
+	    "ordering":true, // default:true
+	    "info":false,// default:true
+	    "language": {
+	        "lengthMenu": "_MENU_line per page",
+	        "zeroRecords": "No record",
+	        "info": "infomation No : _PAGE_ Page  Total:_PAGES_ pages",
+	        "infoEmpty": "No record",
+	        "infoFiltered": ""
+	    },
+	});
 });
 </script>
 
 <style type="text/css">
-.container {
-	
+body {
+	font-size: 12px;
+}
+
+body,td{font-size:12px !important}
+
+.title {
+	color: blue;
+}
+
+.attribute {
+	text-align: right;
+	font-weight: bold;
+}
+
+.value {
+	text-align: left;
+}
+
+.cycleError {
+	color: red;
+	font-weight: bold;
+}
+
+form-control-feedback {
+	right:0;
+	left:0;
 }
 </style>
 </head>
 <html>
 <body>
 	<div class="container">
-		<table id="example" class="display" cellspacing="0" width="100%">
+		<div class="page-header"><h2>Gestion des erreurs WLTP</h2></div>
+		<div class=""><h3>ETAT DU BATCH</h3></div>
+		<div class="container-fluid">
+			<div class="row" style="line-height:4;">
+				<div class="col-md-2 attribute">Date dernier lancement:</div>
+				<div class="col-md-2 value" style="width:130px;">02/12/2016 10h00</div>
+				<div class="col-md-2 attribute">Nb Vehicules envoyes:</div>
+				<div class="col-md-2 value">76 (dont 17 reemissions)</div>
+				<div class="col-md-1 attribute">Etat:</div>
+				<div class="col-md-1 value">En cours...</div>
+			</div>
+			<div class="row" style="line-height:4;">
+				<div class="col-md-2 attribute">Date reponse</div>
+				<div class="col-md-2 value" style="width:130px;">02/12/2016 10h34</div>
+				<div class="col-md-2 attribute">Nb vehicules OK:</div>
+				<div class="col-md-1 value">72</div>
+				<div class="col-md-2 attribute">Nb vehicules ERR:</div>
+				<div class="col-md-1 value">6</div>
+				<div class="col-md-2 cycleError">tubiao 3 cycles en erreurs</div>
+			</div>
+		</div>
+		
+		<div style="margin-top:60px;"><h3>Vehicules EN ERREUR</h3></div>
+		<div class="container-fluid" style="margin-top:20px">
+			<div class="col-md-2">
+				<button class="btn btn-default" type="submit">Export Excel</button>
+			</div>
+			<div class="col-md-6">
+				<div class="checkbox">
+					<label> <input type="checkbox"> Afficher uniquement les vehicules en erreur
+					</label>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top:20px">
+		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Position</th>
-					<th>Office</th>
-					<th>Age</th>
-					<th>Start date</th>
-					<th>Salary</th>
+					<th>	
+						<input type="input" class="form-control" placeholder="  Filter" style="border-radius:10px;">
+					</th>
 				</tr>
-			</thead>
-
-			<tfoot>
 				<tr>
 					<th>Name</th>
 					<th>Position</th>
 					<th>Office</th>
 					<th>Age</th>
 					<th>Start date</th>
-					<th>Salary</th>
+					<th>Salary</th> 
+					<th>xin zeng</th>
 				</tr>
-			</tfoot>
+			</thead>
 
 			<tbody>
 				<tr>
@@ -54,6 +126,7 @@ $(document).ready(function() {
 					<td>61</td>
 					<td>2011/04/25</td>
 					<td>$320,800</td>
+					<td>jsl</td>
 				</tr>
 				<tr>
 					<td>Garrett Winters</td>
@@ -505,6 +578,7 @@ $(document).ready(function() {
 				</tr>
 			</tbody>
 		</table>
+		</div>
 	</div>
 </body>
 </html>
