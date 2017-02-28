@@ -10,24 +10,45 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#example").dataTable().fnDestroy();
-	$('#example').dataTable({
-		"dom" : '<p<"lengthMenu"l>>t<p<"lengthMenu"l>>',
-	    "order": [[ 0, "desc" ]],
-	    "searching":false,
-	    "pagingType":"full_numbers",
-	    "stateSave":true,
-	    "paging":true, // default:true
-	    "ordering":true, // default:true
-	    "info":false,// default:true
-	    "language": {
-	        "lengthMenu": "_MENU_line per page",
-	        "zeroRecords": "No record",
-	        "info": "infomation No : _PAGE_ Page  Total:_PAGES_ pages",
-	        "infoEmpty": "No record",
-	        "infoFiltered": ""
-	    },
-	});
+    var lang = {
+            "sProcessing" : "Processing...",
+            "sLengthMenu" : "_MENU_line per page",
+            "sZeroRecords" : "No Result",
+            "sInfo" : "",
+            "sInfoEmpty" : "",
+            "sInfoFiltered" : "",
+            "sInfoPostFix" : "",
+            "sSearch" : "",
+            "sUrl" : "",
+            "sEmptyTable" : "Empty Result.",
+            "sLoadingRecords" : "Loading...",
+            "sInfoThousands" : ",",
+            "oPaginate" : {
+                "sFirst" : "First",
+                "sPrevious" : "Previous",
+                "sNext" : "Next",
+                "sLast" : "Last",
+                "sJump" : "Jump"
+            },
+            "oAria" : {
+                "sSortAscending" : ": Ascending",
+                "sSortDescending" : ": Desending"
+            }
+    };
+
+    $('#example').dataTable({
+        "dom" : '<p<"lengthMenu"l>>t<p<"lengthMenu"l>>',
+        "language" : lang,  
+        "bAutoWidth":true, 
+        "order": [[ 0, "desc" ]],
+        "searching":false,
+        "pagingType":"full_numbers",
+        "stateSave":true,
+        "paging":true, // default:true
+        "ordering":true, // default:true
+        "info":false,// default:true
+        "scrollX": true,
+    });
 });
 </script>
 
@@ -54,6 +75,12 @@ body,td{font-size:12px !important}
 .cycleError {
 	color: red;
 	font-weight: bold;
+}
+
+filter {
+    border-radius:10px;
+    min-width:100px;
+    width:auto;"
 }
 
 form-control-feedback {
@@ -103,9 +130,12 @@ form-control-feedback {
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>	
-						<input type="input" class="form-control" placeholder="  Filter" style="border-radius:10px;">
-					</th>
+					<th><input type="text" class="form-control filter" placeholder="Filter"></th>
+                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
+                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
+                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
+                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
+                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
 				</tr>
 				<tr>
 					<th>Name</th>
@@ -114,7 +144,6 @@ form-control-feedback {
 					<th>Age</th>
 					<th>Start date</th>
 					<th>Salary</th> 
-					<th>xin zeng</th>
 				</tr>
 			</thead>
 
@@ -126,7 +155,6 @@ form-control-feedback {
 					<td>61</td>
 					<td>2011/04/25</td>
 					<td>$320,800</td>
-					<td>jsl</td>
 				</tr>
 				<tr>
 					<td>Garrett Winters</td>
