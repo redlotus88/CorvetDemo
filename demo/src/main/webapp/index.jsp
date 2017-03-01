@@ -11,44 +11,54 @@
 <script type="text/javascript">
 $(document).ready(function() {
     var lang = {
-            "sProcessing" : "Processing...",
-            "sLengthMenu" : "_MENU_line per page",
-            "sZeroRecords" : "No Result",
-            "sInfo" : "",
-            "sInfoEmpty" : "",
-            "sInfoFiltered" : "",
-            "sInfoPostFix" : "",
-            "sSearch" : "",
-            "sUrl" : "",
-            "sEmptyTable" : "Empty Result.",
-            "sLoadingRecords" : "Loading...",
-            "sInfoThousands" : ",",
-            "oPaginate" : {
-                "sFirst" : "First",
-                "sPrevious" : "Previous",
-                "sNext" : "Next",
-                "sLast" : "Last",
-                "sJump" : "Jump"
-            },
-            "oAria" : {
-                "sSortAscending" : ": Ascending",
-                "sSortDescending" : ": Desending"
-            }
+        "sProcessing" : "Processing...",
+        "sLengthMenu" : "_MENU_line per page",
+        "sZeroRecords" : "No Result",
+        "sInfo" : "",
+        "sInfoEmpty" : "",
+        "sInfoFiltered" : "",
+        "sInfoPostFix" : "",
+        "sSearch" : "Search",
+        "sUrl" : "",
+        "sEmptyTable" : "Empty Result.",
+        "sLoadingRecords" : "Loading...",
+        "sInfoThousands" : ",",
+        "oPaginate" : {
+            "sFirst" : "First",
+            "sPrevious" : "Previous",
+            "sNext" : "Next",
+            "sLast" : "Last",
+            "sJump" : "Jump"
+        },
+        "oAria" : {
+            "sSortAscending" : ": Ascending",
+            "sSortDescending" : ": Desending"
+        }
     };
 
-    $('#example').dataTable({
+    var dtable = $('#example').DataTable({
         "dom" : '<p<"lengthMenu"l>>t<p<"lengthMenu"l>>',
         "language" : lang,  
-        "bAutoWidth":true, 
-        "order": [[ 0, "desc" ]],
-        "searching":false,
+        "autoWidth":true, 
         "pagingType":"full_numbers",
-        "stateSave":true,
         "paging":true, // default:true
         "ordering":true, // default:true
-        "info":false,// default:true
+        "info":true,// default:true
         "scrollX": true,
     });
+
+    // Register Filter Event 
+    $('table thead tr td.filterCell').each(function(index){ 
+        var fInput = $(this).find("input.filter");
+        $(fInput).on('keyup change', function() { 
+            console.log("execute column sort.");
+            // To use search, please set the "searching" as true, and do not use the "stateSave".
+            dtable
+                .columns(index)
+                .search(this.value)
+                .draw();
+        });
+    })
 });
 </script>
 
@@ -57,7 +67,9 @@ body {
 	font-size: 12px;
 }
 
-body,td{font-size:12px !important}
+body,td{
+    font-size:12px !important
+}
 
 .title {
 	color: blue;
@@ -77,8 +89,8 @@ body,td{font-size:12px !important}
 	font-weight: bold;
 }
 
-filter {
-    border-radius:10px;
+.filter {
+    border-radius:20px;
     min-width:100px;
     width:auto;"
 }
@@ -129,14 +141,14 @@ form-control-feedback {
 		<div style="margin-top:20px">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
-				<tr>
-					<th><input type="text" class="form-control filter" placeholder="Filter"></th>
-                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
-                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
-                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
-                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
-                    <th><input type="text" class="form-control filter" placeholder="Filter"></th>
-				</tr>
+                <tr>
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td>
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td>
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td>
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td> 
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td>
+                    <td class="filterCell"><input type="text" class="filter form-control" placeholder="Filter"></td>
+                </tr>
 				<tr>
 					<th>Name</th>
 					<th>Position</th>
